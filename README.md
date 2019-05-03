@@ -1,2 +1,2 @@
 # ADA
-Design and analysis of algorithms project
+Design and Analysis of Algorithms project
