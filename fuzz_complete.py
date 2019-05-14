@@ -1,4 +1,5 @@
 import sys
+import time
 
 NodeCount = 0
 class TrieNode:
@@ -20,7 +21,7 @@ class TrieNode:
 
 
 trie = TrieNode()
-
+count = 0
 def search(word, maxcost,  ratio_calc = False):
     currentrow = range(len(word)+1)
     results = []
@@ -30,8 +31,8 @@ def search(word, maxcost,  ratio_calc = False):
 
     return results
 
-def search_again(node, letter, word, prevRow, results, maxcost, ratio_calc):
-
+def search_again(node, letter, word, prevRow, results, maxcost, ratio_calc): 
+    global count		
     columns = len(word) + 1
     currentRow = [prevRow[0] + 1]
 
@@ -49,7 +50,7 @@ def search_again(node, letter, word, prevRow, results, maxcost, ratio_calc):
             replacecost = prevRow[column - 1]
 
         currentRow.append(min( insertcost, deletecost, replacecost))
-
+        count += 1
     if(currentRow[-1] <= maxcost and node.word != None):
         results.append((node.word, currentRow[-1]))
 
@@ -60,14 +61,16 @@ def search_again(node, letter, word, prevRow, results, maxcost, ratio_calc):
 if __name__ == '__main__':
     target = sys.argv[1]
     max_cost = int(sys.argv[2])
+
     suppress = int(sys.argv[3])
     data = open("./data/google-10000-english.txt", "r")
     for line in data.readlines():
-        words = line.split(" ")
+        words = line.strip().split(" ")
         for i in range(len(words)):
             trie.insert(words[i])
-
+    start = time.time()
     results = search(target, max_cost, True)
+
     if not suppress:
         for res in results:
             print(res)

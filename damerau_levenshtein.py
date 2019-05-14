@@ -1,4 +1,5 @@
 import sys
+import time
 
 NodeCount = 0
 class TrieNode:
@@ -73,8 +74,9 @@ if __name__ == '__main__':
         words = line.split(" ")
         for i in range(len(words)):
             trie.insert(words[i])
-
+    start = time.time()
     results = search(target, max_cost, True)
+
     if not suppress:
         for res in results:
             print(res)
