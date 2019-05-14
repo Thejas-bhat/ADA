@@ -1,8 +1,8 @@
-import numpy as np
+
 def lev_ratio_and_dist(s, t, lev_ratio = False):
     r = len(s)+1
     c = len(t)+1
-    dist_mat = np.zeros((r,c),dtype = int)
+    dist_mat = [[0 for i in range(c)]for j in range(r)]
     for i in range(1, r):
         for k in range(1,c):
             dist_mat[i][0] = i
