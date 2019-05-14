@@ -56,7 +56,7 @@ def search_again(node, letter, prev_letter, word, prevRow, pre_previous_row, res
 
 	if(currentRow[-1] <= maxcost and node.word != None):
 		results.append((node.word, currentRow[-1]))
-		
+
 	if min(currentRow) <= maxcost:
 		prev_letter = letter
 		for letter in node.children:
@@ -68,15 +68,15 @@ if __name__ == '__main__':
     target = sys.argv[1]
     max_cost = int(sys.argv[2])
 
+    suppress = int(sys.argv[3])
     data = open("./data/google-10000-english.txt", "r")
     for line in data.readlines():
-        words = line.strip().split(" ")
+        words = line.split(" ")
         for i in range(len(words)):
             trie.insert(words[i])
     start = time.time()
     results = search(target, max_cost, True)
-    end = time.time()
-    for res in results:
-        print(res)
 
-    print(end-start, NodeCount,"thats it i guess")
+    if not suppress:
+        for res in results:
+            print(res)
